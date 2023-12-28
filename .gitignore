@@ -1,1 +1,4 @@
 .idea
+dependency_graphics.egg-info
+build
+*.egg
