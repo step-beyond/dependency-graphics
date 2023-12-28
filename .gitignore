@@ -2,3 +2,4 @@
 dependency_graphics.egg-info
 build
 *.egg
+**/__pycache__
