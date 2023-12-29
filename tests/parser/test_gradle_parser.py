@@ -1,3 +1,4 @@
+import os
 import unittest
 
 from assertpy import assert_that
@@ -21,8 +22,14 @@ class MyTestCase(unittest.TestCase):
         module_dependency = gradle_parser.extract_dependency("")
         assert_that(module_dependency).is_equal_to(None)
 
+    def test_should_not_parse_any_project(self):
+        module_dependency = gradle_parser.extract_dependency\
+            ("property 'sonar.coverage.jacoco.xmlReportPaths', '${project.rootDir}/application/'")
+        assert_that(module_dependency).is_equal_to(None)
+
     def test_does_parse_modules_correctly(self):
-        directory: str = "./project"
+        this_dir = os.path.dirname(os.path.abspath(__file__))
+        directory: str = os.path.join(this_dir, "../resources/example_project/")
 
         module_graph = gradle_parser.create_module_graph(directory)
 

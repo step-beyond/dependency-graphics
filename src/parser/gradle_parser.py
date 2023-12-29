@@ -2,19 +2,18 @@ import os
 import re
 from typing import Optional
 
-from src.model.modules import ModuleGraph, Module
+from ..model.modules import ModuleGraph, Module
 
 
 def extract_dependency(line: str) -> Optional[str]:
-    if "project" in line and not line.startswith("//"):
-        return re.sub(r"\'(\))*", "", line.split(":")[-1]) \
-            .replace("\n", "")
+    if " project(" in line and not line.startswith("//"):
+        return re.sub(r"\'(\))*", "", line.split(":")[-1]).replace("\n", "").replace("\")", "")
     return None
 
 
 def create_module_graph(directory: str) -> ModuleGraph:
     modules: [Module] = []
-    for module_root, files in os.walk(directory):
+    for module_root, _, files in os.walk(directory):
         if "build.gradle" in files:
             module_name = module_root.split("/")[-1]
             with open(module_root + "/build.gradle", 'r', encoding="UTF-8") as file:

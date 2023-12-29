@@ -3,3 +3,6 @@ dependency_graphics.egg-info
 build
 *.egg
 **/__pycache__
+code
+.dependency-graphics-rc.yaml
+out

@@ -1,6 +1,6 @@
-from src.configuration.configuration import configuration
-from src.model.modules import ModuleGraph
-from src.parser import gradle_parser
+from ..configuration.configuration import configuration
+from ..model.modules import ModuleGraph
+from ..parser import gradle_parser
 
 
 def parse_module_tree() -> ModuleGraph:
