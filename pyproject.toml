@@ -9,6 +9,7 @@ requires-python = ">=3.7"
 
 dependencies = [
     'PyYAML ~= 6.0',
+    'graphviz ~= 0.20.1'
 ]
 
 [project.optional-dependencies]
