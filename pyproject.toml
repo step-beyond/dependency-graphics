@@ -1,13 +1,23 @@
 [project]
-name = 'dependency-graphics'
+name = "dependency-graphics"
 version = "0.0.1"
+authors = [{name = "Jonas Huebner", email = "dev@jonashuebner.de" }]
+description = "This tool generates visual dependency graphs based on source code"
+readme = "README.md"
+license = {file = "LICENSE"}
+requires-python = ">=3.7"
+
 dependencies = [
-    'PyYAML ~= 6.0'
+    'PyYAML ~= 6.0',
 ]
+
 [project.optional-dependencies]
 tests = [
     'assertpy ~= 1.1'
 ]
+
 [build-system]
-requires = ["setuptools", "assertpy"]
+requires = ["setuptools>=60.0.0"]
 build-backend = "setuptools.build_meta"
+
+
