@@ -3,5 +3,6 @@ disable=
     C0114,
     C0115,
     C0116,
-    W0511
+    W0511, # TODOs are fine
+    E0401 # due to problems with imports in tests folder
 
