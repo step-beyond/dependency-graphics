@@ -1,0 +1,4 @@
+dependencies {
+    implementation project(':module_1')
+    implementation project(':module_2')
+}

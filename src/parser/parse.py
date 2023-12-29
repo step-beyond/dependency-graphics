@@ -1,6 +1,7 @@
-from src.model.modules import ModuleGraph, Module
+from src.configuration.configuration import configuration
+from src.model.modules import ModuleGraph
+from src.parser import gradle_parser
 
 
 def parse_module_tree() -> ModuleGraph:
-    module_list = [Module("Test", ["Test2"]), Module("Test2", [])]
-    return ModuleGraph(module_list)
+    return gradle_parser.create_module_graph(configuration.get_directory())

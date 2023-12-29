@@ -1,4 +1,4 @@
-from src.configuration import transformation
+from src.transformation import transformation
 from src.graphix import draw
 from src.parser import parse
 
