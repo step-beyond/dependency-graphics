@@ -67,9 +67,9 @@ def add_dependencies(model, add_dependency_list) -> ModuleGraph:
 
 def transform_model(model: ModuleGraph, config: Config) -> ModuleGraph:
     # transform modules
-    model = ignore_modules(model, config.get_ignore_modules())
     model = aggregate_modules(model, config.get_aggregated_modules())
     model = add_modules(model, config.get_add_modules())
+    model = ignore_modules(model, config.get_ignore_modules())
     # transform dependencies
     model = ignore_dependencies(model, config.get_ignore_dependencies())
     model = add_dependencies(model, config.get_add_dependencies())

@@ -1,14 +1,27 @@
 from graphviz import Source
 
-from src.configuration.config import Config
+from src.configuration.draw_config import DrawConfig
 from src.model.modules import ModuleGraph
 
 
-def draw(module_graph: ModuleGraph, config: Config):
+def draw(module_graph: ModuleGraph, config: DrawConfig):
     temp = """digraph G {
     edge [dir=forward]
-    node [shape=plaintext]
+    node [shape=box]
 """
+
+    all_modules = {x.name for x in module_graph.modules}
+    for module in module_graph.modules:
+        all_modules.update(module.dependencies)
+
+    for color_match in config.get_color_matching():
+        module_prefix = color_match.split(":")[0]
+        color = color_match.split(":")[1]
+        for module in all_modules:
+            if module.startswith(module_prefix):
+                temp += "\t" + module.replace("-", "_") \
+                        + " [style=filled,fillcolor=" + color + "]\n"
+
     for module in module_graph.modules:
         for dependency in module.dependencies:
             temp += "\t" \
@@ -18,6 +31,6 @@ def draw(module_graph: ModuleGraph, config: Config):
                     + "\n"
 
     temp += """}"""
-    s = Source(temp, filename="out/test.gv", format="png")
+    s = Source(temp, filename="out/" + config.get_filename() + ".gv", format="png")
     if config.is_show_graph():
         s.view()
