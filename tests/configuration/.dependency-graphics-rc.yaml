@@ -1,1 +1,5 @@
 directory: "./"
+aggregated_modules:
+    "left_modules":
+      - "module_1"
+      - "module_2"
