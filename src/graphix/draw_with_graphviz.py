@@ -1,10 +1,10 @@
 from graphviz import Source
 
+from src.configuration.config import Config
 from src.model.modules import ModuleGraph
-from src.configuration import configuration
 
 
-def draw(module_graph: ModuleGraph):
+def draw(module_graph: ModuleGraph, config: Config):
     temp = """digraph G {
     edge [dir=forward]
     node [shape=plaintext]
@@ -19,5 +19,5 @@ def draw(module_graph: ModuleGraph):
 
     temp += """}"""
     s = Source(temp, filename="out/test.gv", format="png")
-    if configuration.get_configuration().is_show_graph():
+    if config.is_show_graph():
         s.view()

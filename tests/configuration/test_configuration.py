@@ -1,7 +1,8 @@
 import os
 import unittest
 from assertpy import assert_that
-from src.configuration import configuration
+
+from src.configuration import factory as config_factory
 
 
 class MyTestCase(unittest.TestCase):
@@ -10,7 +11,7 @@ class MyTestCase(unittest.TestCase):
         this_dir = os.path.dirname(os.path.abspath(__file__))
         config_path: str = os.path.join(this_dir, ".dependency-graphics-rc.yaml")
 
-        config = configuration.load_config(config_path)
+        config = config_factory.load_config(config_path)
 
         assert_that(config.get_directory()).is_equal_to("./")
 
