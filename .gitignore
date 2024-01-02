@@ -6,3 +6,4 @@ build
 code
 .dependency-graphics-rc.yaml
 out
+venv
