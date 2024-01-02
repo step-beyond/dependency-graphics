@@ -96,6 +96,35 @@ class MyTestCase(unittest.TestCase):
         assert_that(result.modules).contains(Module("module_1", {"module_2"}))
         assert_that(result.modules).contains(Module("module_2", {"module_1", "module_2"}))
 
+    def test_should_ignore_dependency(self):
+        # GIVEN
+        module_1: Module = Module("module_1", {"module_2"})
+        module_2: Module = Module("module_2", {"module_1", "module_2"})
+        given: ModuleGraph = ModuleGraph([module_1, module_2])
+        ignore_dependencies = ["module_1:module_2"]
+
+        # WHEN
+        result: ModuleGraph = transformation.ignore_dependencies(given, ignore_dependencies)
+
+        # THEN
+        assert_that(result.modules).is_length(2)
+        assert_that(result.modules).contains(Module("module_1", set()))
+        assert_that(result.modules).contains(Module("module_2", {"module_1", "module_2"}))
+
+    def test_should_not_ignore_dependency_due_to_missing_match(self):
+        # GIVEN
+        module_1: Module = Module("module_1", {"module_2"})
+        module_2: Module = Module("module_2", {"module_1", "module_2"})
+        given: ModuleGraph = ModuleGraph([module_1, module_2])
+        ignore_dependencies = ["module_1:module_3"]
+
+        # WHEN
+        result: ModuleGraph = transformation.ignore_dependencies(given, ignore_dependencies)
+
+        # THEN
+        assert_that(result.modules).is_length(2)
+        assert_that(result.modules).contains(Module("module_1", {"module_2"}))
+        assert_that(result.modules).contains(Module("module_2", {"module_1", "module_2"}))
 
 if __name__ == '__main__':
     unittest.main()
