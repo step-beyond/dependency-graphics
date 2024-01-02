@@ -20,3 +20,8 @@ class Config:
         if self.plain_config.get("aggregate-modules") is None:
             return {}
         return self.plain_config.get("aggregate-modules")
+
+    def get_ignore_dependencies(self):
+        if self.plain_config.get("ignore-dependencies") is None:
+            return {}
+        return self.plain_config.get("ignore-dependencies")
