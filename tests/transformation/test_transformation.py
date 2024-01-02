@@ -126,5 +126,31 @@ class MyTestCase(unittest.TestCase):
         assert_that(result.modules).contains(Module("module_1", {"module_2"}))
         assert_that(result.modules).contains(Module("module_2", {"module_1", "module_2"}))
 
+    def test_should_add_dependency(self):
+        # GIVEN
+        module_1: Module = Module("module_1", set())
+        module_2: Module = Module("module_2", set())
+        given: ModuleGraph = ModuleGraph([module_1, module_2])
+        new_dependency: [str] = ["module_1:module_2"]
+        # WHEN
+        result: ModuleGraph = transformation.add_dependencies(given, new_dependency)
+
+        # THEN
+        assert_that(result.modules).is_length(2)
+        assert_that(result.modules).contains(Module("module_1", {"module_2"}))
+        assert_that(result.modules).contains(Module("module_2", set()))
+
+    def test_should_add_module(self):
+        # GIVEN
+        given: ModuleGraph = ModuleGraph([])
+        new_modules: [str] = ["foo"]
+        # WHEN
+        result: ModuleGraph = transformation.add_modules(given, new_modules)
+
+        # THEN
+        assert_that(result.modules).is_length(1)
+        assert_that(result.modules).contains(Module("foo", set()))
+
+
 if __name__ == '__main__':
     unittest.main()

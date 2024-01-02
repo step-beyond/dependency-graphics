@@ -49,10 +49,29 @@ def ignore_dependencies(model: ModuleGraph, ignore_dependencies_list: []):
     return model
 
 
+def add_modules(model, add_modules_list) -> ModuleGraph:
+    for new_module_name in add_modules_list:
+        model.modules.append(Module(new_module_name, set()))
+    return model
+
+
+def add_dependencies(model, add_dependency_list) -> ModuleGraph:
+    for new_dependency in add_dependency_list:
+        from_dependency: str = new_dependency.split(":")[0]
+        to_dependency: str = new_dependency.split(":")[1]
+        for module in model.modules:
+            if module.name == from_dependency:
+                module.dependencies.add(to_dependency)
+    return model
+
+
 def transform_model(model: ModuleGraph, config: Config) -> ModuleGraph:
     # transform modules
     model = ignore_modules(model, config.get_ignore_modules())
     model = aggregate_modules(model, config.get_aggregated_modules())
+    model = add_modules(model, config.get_add_modules())
     # transform dependencies
     model = ignore_dependencies(model, config.get_ignore_dependencies())
+    model = add_dependencies(model, config.get_add_dependencies())
+
     return model
