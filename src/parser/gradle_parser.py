@@ -17,10 +17,10 @@ def create_module_graph(directory: str) -> ModuleGraph:
         if "build.gradle" in files:
             module_name = module_root.split("/")[-1]
             with open(module_root + "/build.gradle", 'r', encoding="UTF-8") as file:
-                module_dependencies = []
+                module_dependencies = set()
                 for line in file.readlines():
                     module_dependency = extract_dependency(line)
                     if module_dependency is not None:
-                        module_dependencies.append(module_dependency)
+                        module_dependencies.add(module_dependency)
                 modules.append(Module(module_name, module_dependencies))
     return ModuleGraph(modules)

@@ -15,3 +15,8 @@ class Config:
         if self.plain_config.get("ignore-modules") is None:
             return []
         return self.plain_config.get("ignore-modules")
+
+    def get_aggregated_modules(self) -> {}:
+        if self.plain_config.get("aggregate-modules") is None:
+            return {}
+        return self.plain_config.get("aggregate-modules")

@@ -4,7 +4,7 @@ from dataclasses import dataclass
 @dataclass
 class Module:
     name: str
-    dependencies: [str]
+    dependencies: {str}
 
 
 @dataclass

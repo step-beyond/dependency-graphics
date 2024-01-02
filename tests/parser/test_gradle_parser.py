@@ -34,9 +34,9 @@ class MyTestCase(unittest.TestCase):
         module_graph = gradle_parser.create_module_graph(directory)
 
         assert_that(module_graph.modules).is_length(3)
-        assert_that(module_graph.modules).contains(Module("module_1", []))
-        assert_that(module_graph.modules).contains(Module("module_2", ["module_1"]))
-        assert_that(module_graph.modules).contains(Module("module_3", ["module_1", "module_2"]))
+        assert_that(module_graph.modules).contains(Module("module_1", set()))
+        assert_that(module_graph.modules).contains(Module("module_2", {"module_1"}))
+        assert_that(module_graph.modules).contains(Module("module_3", {"module_1", "module_2"}))
 
 
 if __name__ == '__main__':
