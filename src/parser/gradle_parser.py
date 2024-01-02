@@ -2,7 +2,7 @@ import os
 import re
 from typing import Optional
 
-from ..model.modules import ModuleGraph, Module
+from src.model.modules import ModuleGraph, Module
 
 
 def extract_dependency(line: str) -> Optional[str]:
