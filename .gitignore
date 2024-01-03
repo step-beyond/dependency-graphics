@@ -4,6 +4,6 @@ build
 *.egg
 **/__pycache__
 code
-.dependency-graphics-rc.yaml
+/.dependency-graphics-rc.yaml
 out
 venv
