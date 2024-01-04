@@ -41,4 +41,6 @@ class Config:
         return self.plain_config.get("add-modules")
 
     def get_include_dependency_re(self) -> str:
+        if self.plain_config.get("include-dependency-re") is None:
+            return ""
         return self.plain_config.get("include-dependency-re")
