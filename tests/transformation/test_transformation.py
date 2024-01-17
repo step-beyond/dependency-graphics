@@ -2,6 +2,7 @@ import unittest
 
 from assertpy import assert_that
 
+from src.configuration.config import Config
 from src.model.modules import ModuleGraph, Module
 from src.transformation import transformation
 
@@ -150,6 +151,19 @@ class MyTestCase(unittest.TestCase):
         # THEN
         assert_that(result.modules).is_length(1)
         assert_that(result.modules).contains(Module("foo", set()))
+
+    def test_should_apply_multiple_configs(self):
+        # GIVEN
+        given: ModuleGraph = ModuleGraph([Module("module_1", []), Module("module_2", [])])
+        configs: [Config] = [
+            Config({"ignore-modules": "module_1"}),
+            Config({"ignore-modules": "module_2"})
+        ]
+
+        # WHEN
+        result: ModuleGraph = transformation.transform_model(given, configs)
+
+        assert_that(result.modules).is_length(0)
 
 
 if __name__ == '__main__':

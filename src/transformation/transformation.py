@@ -65,7 +65,7 @@ def add_dependencies(model, add_dependency_list) -> ModuleGraph:
     return model
 
 
-def transform_model(model: ModuleGraph, config: Config) -> ModuleGraph:
+def __transform_model(model: ModuleGraph, config: Config) -> ModuleGraph:
     # transform modules
     model = aggregate_modules(model, config.get_aggregated_modules())
     model = add_modules(model, config.get_add_modules())
@@ -74,4 +74,10 @@ def transform_model(model: ModuleGraph, config: Config) -> ModuleGraph:
     model = ignore_dependencies(model, config.get_ignore_dependencies())
     model = add_dependencies(model, config.get_add_dependencies())
 
+    return model
+
+
+def transform_model(model: ModuleGraph, configs: [Config]) -> ModuleGraph:
+    for config in configs:
+        model = __transform_model(model, config)
     return model

@@ -4,7 +4,7 @@ from src.configuration.draw_config import DrawConfig
 from src.model.modules import ModuleGraph
 
 
-def draw(module_graph: ModuleGraph, config: DrawConfig):
+def draw(module_graph: ModuleGraph, output_file_name: str, config: DrawConfig):
     temp = """digraph G {
     edge [dir=forward]
     node [shape=box]
@@ -31,6 +31,6 @@ def draw(module_graph: ModuleGraph, config: DrawConfig):
                     + "\n"
 
     temp += """}"""
-    s = Source(temp, filename="out/" + config.get_filename() + ".gv", format="png")
+    s = Source(temp, filename="out/" + output_file_name + ".gv", format="png")
     if config.is_show_graph():
         s.view()
