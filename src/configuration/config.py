@@ -7,9 +7,6 @@ from .draw_config import DrawConfig
 class Config:
     plain_config: any
 
-    def get_directory(self) -> str:
-        return self.plain_config.get("directory")
-
     def get_draw_config(self) -> DrawConfig:
         if self.plain_config.get("draw-config") is None:
             return DrawConfig({})
@@ -44,3 +41,6 @@ class Config:
         if self.plain_config.get("include-dependency-re") is None:
             return ""
         return self.plain_config.get("include-dependency-re")
+
+    def get_parent_config(self) -> str:
+        return self.plain_config.get("parent-config")

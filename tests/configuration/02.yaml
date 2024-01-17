@@ -1,0 +1,3 @@
+parent-config: "./01.yaml"
+ignore-modules:
+    - "module_1"
